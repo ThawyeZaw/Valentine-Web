@@ -1,0 +1,96 @@
+﻿<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Will You Be My Valentine?</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<canvas id="confetti"></canvas>
+		<header>
+			<div class="brand">Valentine Studio</div>
+		</header>
+
+		<section class="hero">
+			<div class="hero-card">
+				<div class="valentine-stage">
+					<div class="question" id="questionText">Will you be my valentine?</div>
+					<p id="subtitleText">Click yes and let the confetti rain.</p>
+					<img id="heroImage" class="hero-image" alt="" />
+					<div class="button-row">
+						<button id="yesBtn">Yes</button>
+						<button id="noBtn">No</button>
+					</div>
+					<div class="celebration" id="celebration">Yay! You just made this day sparkly.</div>
+				</div>
+			</div>
+
+			<div>
+				<h1 id="headlineText">Create a sharable valentine moment</h1>
+				<p>Customize the text, colors, and image. Save your favorite version and share it instantly.</p>
+				<div class="button-row">
+					<button class="secondary-btn" id="scrollCreate">Start Creating</button>
+					<button class="secondary-btn" id="scrollGallery">Explore Gallery</button>
+				</div>
+			</div>
+		</section>
+
+		<section class="panel-grid">
+			<div class="panel" id="createPanel">
+				<h2>Create</h2>
+				<label for="titleInput">Headline</label>
+				<input id="titleInput" placeholder="Will you be my valentine?" />
+
+				<label for="subtitleInput">Subtitle</label>
+				<input id="subtitleInput" placeholder="Click yes and let the confetti rain." />
+
+				<label for="imageInput">Image or GIF URL</label>
+				<input id="imageInput" placeholder="https://..." />
+
+				<div class="form-row">
+					<div>
+						<label for="accentInput">Accent Color</label>
+						<input id="accentInput" type="color" value="#ff5d7c" />
+					</div>
+					<div>
+						<label for="bgInput">Background Color</label>
+						<input id="bgInput" type="color" value="#fff1f5" />
+					</div>
+				</div>
+
+				<div class="form-row">
+					<button id="generateBtn">Generate Link</button>
+					<button class="secondary-btn" id="saveBtn">Save</button>
+				</div>
+				<label for="shareOutput">Shareable Link</label>
+				<input id="shareOutput" readonly />
+				<button class="secondary-btn" id="copyBtn">Copy Link</button>
+			</div>
+
+			<div class="panel" id="previewPanel">
+				<h2>Preview</h2>
+				<div class="hero-card" id="previewCard">
+					<div class="valentine-stage">
+						<div class="question" id="previewQuestion">Will you be my valentine?</div>
+						<p id="previewSubtitle">Click yes and let the confetti rain.</p>
+						<img id="previewImage" alt="" style="width: 100%; border-radius: 16px; margin-top: 12px; display: none" />
+					</div>
+				</div>
+			</div>
+
+			<div class="panel" id="galleryPanel">
+				<h2>Gallery</h2>
+				<p>Grab a starter idea for text, colors, or GIF mood.</p>
+				<div class="gallery-grid" id="galleryGrid"></div>
+			</div>
+		</section>
+
+		<footer>Built for sweet moments. Customize, save, and share.</footer>
+
+		<script src="script.js"></script>
+	</body>
+</html>
