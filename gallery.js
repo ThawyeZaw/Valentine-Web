@@ -1,22 +1,29 @@
 const galleryImages = [
   // High-quality cute cats & romantic vibes
-  'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1200&q=80',
-  'https://images.unsplash.com/photo-1517331156700-3c241d2b4d83?auto=format&fit=crop&w=1200&q=80',
-  'https://images.unsplash.com/photo-1574158622682-e40e69881006?auto=format&fit=crop&w=1200&q=80',
+  'https://media1.tenor.com/m/aOi3KTDW8aAAAAAC/cute-so-cute.gif',
+  'https://media.tenor.com/zHk9ZfeUNyIAAAAi/cat-blush.gif',
+  'https://i.pinimg.com/236x/cf/72/55/cf7255ae7344ce44e62f784fe160ca0d.jpg',
+  'https://godwinks.com/cdn/shop/articles/Screen_Shot_2020-02-09_at_6.02.51_AM_1024x1024.png?v=1581247204',
   'https://media1.tenor.com/m/9EWwYOJnM_oAAAAC/cute-cats.gif',
-  'https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?auto=format&fit=crop&w=1200&q=80',
-  'https://images.unsplash.com/photo-1529927066849-79b791a69825?auto=format&fit=crop&w=1200&q=80',
-]
+  'https://static.vecteezy.com/system/resources/thumbnails/069/826/496/small/cute-gray-kitten-wearing-a-pink-bow-sits-inside-a-paper-bag-photo.jpg',
+  'https://img.freepik.com/premium-photo/cute-dogs-couple-love-with-hearts-3d-render-illustration_691560-7135.jpg',
+  'https://ichef.bbci.co.uk/images/ic/640x360/p0hjd8f0.jpg',
+  'https://i.pinimg.com/736x/a3/98/97/a39897813f0ea964ef8cf69c6976322a.jpg']
 
 const galleryGifs = [
   // Minions & Cats mix
+  'https://media.tenor.com/mfWIcgf_ao8AAAAi/minions-minion.gif',
+  'https://media.tenor.com/W_4cIjlMTZsAAAAi/cc.gif',
+  'https://media.tenor.com/SFy5Za0DyMEAAAAi/erm-fingers.gif',
   'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpwaGZicWxqbmR6Z3Z2Z3Znbnh4Y2R0Z3VxeWZvY3p3emU1d2ZtOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/chzz1FQgqhytWRWbp3/giphy.gif',
-  'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXN6bjF6bm56bm56bm56bm56bm56bm56bm56bm56bm56bm56JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/111ebonMs90YLu/giphy.gif', 
+  'https://media1.tenor.com/m/_WZy7E7hoTcAAAAd/cat-smile.gif',
   'https://media1.tenor.com/m/YonJHRH2-94AAAAd/cat-tiktok.gif',
-  'https://media1.tenor.com/m/8AtvqiYPm04AAAAd/cat-leaf.gif',
+  'https://media1.tenor.com/m/X-jA_vmTHUYAAAAd/yapapa-yapapa-cat.gif',
+  'https://media.tenor.com/2KrmhQzy6mIAAAAi/cute-bear-silvia-emoji.gif',
   'https://media1.tenor.com/m/4HJ2V6mgJVQAAAAC/cute-cats-dancing.gif',
   'https://media1.tenor.com/m/YFolBZSo8UIAAAAd/123.gif',
   'https://media.giphy.com/media/M90mJvfWfd5mbUuULX/giphy.gif',
+  'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXN6bjF6bm56bm56bm56bm56bm56bm56bm56bm56bm56bm56JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/111ebonMs90YLu/giphy.gif',
 ]
 
 const galleryTexts = [
@@ -26,10 +33,20 @@ const galleryTexts = [
   'You’re absolutely purr-fect.',
   'Will you be my partner in crime?',
   'I love you more than a Minion loves "Bello!"',
-  'Meow & Forever.',
-  'You make my heart go BEE-DOO BEE-DOO!',
   'Life without you would be a catastrophe.',
+  'You’re the sprinkles on my cupcake.',
+  'Every day with you is a new adventure.',
+  "I'd chase you across a thousand yarn balls.",
+  'You’re the reason my tail wags.',
+  'Crazy for you, minion-style.',
+  'You + Me = Fur-ever.',
+  'You stole my heart, keep it warm.',
+  "Let's cuddle like kittens all day.",
+  'My love for you is louder than a Minion laugh.',
+  'You’re my favorite hello and hardest goodbye.',
+  'Together we’re the perfect pair.',
 ]
+
 
 const colorCombos = [
   // --- THE MINION & CAT SPECIALS ---
