@@ -306,12 +306,35 @@ function renderGallerySections() {
   renderColorGallery(colorCombos, 'galleryColors')
 }
 
-document.querySelectorAll('[data-gallery-target]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const target = document.getElementById(btn.dataset.galleryTarget)
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+const galleryButtons = document.querySelectorAll('[data-gallery-target]')
+const galleryBlocks = {
+  galleryImages: document.getElementById('galleryImagesBlock'),
+  galleryGifs: document.getElementById('galleryGifsBlock'),
+  galleryTexts: document.getElementById('galleryTextsBlock'),
+  galleryColors: document.getElementById('galleryColorsBlock'),
+}
+
+function setActiveGallery(targetId) {
+  Object.entries(galleryBlocks).forEach(([key, block]) => {
+    if (!block) return
+    if (key === targetId) {
+      block.classList.remove('is-hidden')
+    } else {
+      block.classList.add('is-hidden')
     }
+  })
+  galleryButtons.forEach(btn => {
+    if (btn.dataset.galleryTarget === targetId) {
+      btn.classList.add('is-active')
+    } else {
+      btn.classList.remove('is-active')
+    }
+  })
+}
+
+galleryButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    setActiveGallery(btn.dataset.galleryTarget)
   })
 })
 
@@ -353,3 +376,4 @@ function launchConfetti() {
 updatePreview()
 applyFromParams()
 renderGallerySections()
+setActiveGallery('galleryGifs')
