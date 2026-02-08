@@ -1,13 +1,13 @@
-
-const noTexts = ['No', 'Are you sure?', 'Think again', 'Pretty please?', "Don't break my heart", 'Okay, last chance', 'You mean yes, right?']
+﻿const noTexts = ['No', 'Are you sure?', 'Think again', 'Pretty please?', "Don't break my heart", 'Okay, last chance', 'You mean yes, right?']
 let noIndex = 0
 let yesScale = 1
-const yesGrowStep = 0.5
+const yesGrowStep = 0.4
 
 const yesBtn = document.getElementById('yesBtn')
 const noBtn = document.getElementById('noBtn')
 const celebration = document.getElementById('celebration')
-const heroImage = document.getElementById('heroImage')
+const heroImageBefore = document.getElementById('heroImageBefore')
+const heroImageAfter = document.getElementById('heroImageAfter')
 
 noBtn.addEventListener('click', () => {
   noIndex = (noIndex + 1) % noTexts.length
@@ -19,6 +19,10 @@ noBtn.addEventListener('click', () => {
 
 yesBtn.addEventListener('click', () => {
   celebration.classList.add('active')
+  if (heroImageAfter && heroImageAfter.src) {
+    heroImageBefore.style.display = 'none'
+    heroImageAfter.style.display = 'block'
+  }
   yesBtn.hidden = true
   noBtn.hidden = true
   launchConfetti()
@@ -27,53 +31,96 @@ yesBtn.addEventListener('click', () => {
 const scrollCreate = document.getElementById('scrollCreate')
 const scrollGallery = document.getElementById('scrollGallery')
 const createPanel = document.getElementById('createPanel')
-const galleryPanel = document.getElementById('galleryPanel')
+const gallerySection = document.getElementById('gallerySection')
 
-scrollCreate.addEventListener('click', () => createPanel.scrollIntoView({ behavior: 'smooth' }))
-scrollGallery.addEventListener('click', () => galleryPanel.scrollIntoView({ behavior: 'smooth' }))
+if (scrollCreate) {
+  scrollCreate.addEventListener('click', () => createPanel.scrollIntoView({ behavior: 'smooth' }))
+}
+if (scrollGallery) {
+  scrollGallery.addEventListener('click', () => gallerySection.scrollIntoView({ behavior: 'smooth' }))
+}
 
 const titleInput = document.getElementById('titleInput')
 const subtitleInput = document.getElementById('subtitleInput')
-const imageInput = document.getElementById('imageInput')
-const accentInput = document.getElementById('accentInput')
+const imageBeforeInput = document.getElementById('imageBeforeInput')
+const imageAfterInput = document.getElementById('imageAfterInput')
 const bgInput = document.getElementById('bgInput')
+const cardInput = document.getElementById('cardInput')
+const textInput = document.getElementById('textInput')
 const shareOutput = document.getElementById('shareOutput')
 const previewQuestion = document.getElementById('previewQuestion')
 const previewSubtitle = document.getElementById('previewSubtitle')
-const previewImage = document.getElementById('previewImage')
+const previewImageBefore = document.getElementById('previewImageBefore')
+const previewImageAfter = document.getElementById('previewImageAfter')
 const previewCard = document.getElementById('previewCard')
+const previewPanel = document.getElementById('previewPanel')
 
 function updatePreview() {
   const title = titleInput.value || 'Will you be my valentine?'
   const subtitle = subtitleInput.value || 'Click yes and let the confetti rain.'
-  const imageUrl = imageInput.value.trim()
-  const accent = accentInput.value
+  const rawBefore = imageBeforeInput.value.trim()
+  const rawAfter = imageAfterInput.value.trim()
+  const imageBeforeUrl = rawBefore ? fixDriveUrl(rawBefore) : ''
+  const imageAfterUrl = rawAfter ? fixDriveUrl(rawAfter) : ''
   const bg = bgInput.value
+  const card = cardInput.value
+  const text = textInput.value
 
   previewQuestion.textContent = title
   previewSubtitle.textContent = subtitle
-  previewCard.style.borderColor = accent
-  previewCard.style.background = `linear-gradient(140deg, #ffffff, ${bg})`
+  previewCard.style.color = text
+  previewCard.style.background = card
+  previewPanel.style.background = bg
+  previewPanel.style.color = text
 
-  if (imageUrl) {
-    previewImage.src = imageUrl
-    previewImage.style.display = 'block'
+  if (imageBeforeUrl) {
+    previewImageBefore.src = imageBeforeUrl
+    previewImageBefore.style.display = 'block'
   } else {
-    previewImage.style.display = 'none'
+    previewImageBefore.style.display = 'none'
+  }
+
+  if (imageAfterUrl) {
+    previewImageAfter.src = imageAfterUrl
+    previewImageAfter.style.display = 'block'
+  } else {
+    previewImageAfter.style.display = 'none'
   }
 }
 
-;[titleInput, subtitleInput, imageInput, accentInput, bgInput].forEach(input => {
+;[titleInput, subtitleInput, imageBeforeInput, imageAfterInput, bgInput, cardInput, textInput].forEach(input => {
   input.addEventListener('input', updatePreview)
 })
 
+// GOOGLE DRIVE LINK CONVERTER (from v2)
+function fixDriveUrl(url) {
+  if (!url) return url
+  if (!url.includes('drive.google.com')) return url
+
+  let fileId = ''
+  // Pattern 1: /file/d/ID/view
+  if (url.includes('/file/d/')) {
+    fileId = url.split('/file/d/')[1].split('/')[0]
+  }
+  // Pattern 2: ?id=ID or &id=ID
+  else if (url.includes('id=')) {
+    fileId = url.split('id=')[1].split('&')[0]
+  }
+
+  return fileId ? `https://lh3.googleusercontent.com/u/0/d/${fileId}` : url
+}
+
 document.getElementById('generateBtn').addEventListener('click', () => {
+  const imageBefore = imageBeforeInput.value ? fixDriveUrl(imageBeforeInput.value.trim()) : ''
+  const imageAfter = imageAfterInput.value ? fixDriveUrl(imageAfterInput.value.trim()) : ''
   const params = new URLSearchParams({
     title: titleInput.value || 'Will you be my valentine?',
     subtitle: subtitleInput.value || 'Click yes and let the confetti rain.',
-    image: imageInput.value || '',
-    accent: accentInput.value,
+    imageBefore: imageBefore || 'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',
+    imageAfter: imageAfter || 'https://media.giphy.com/media/xT0xezQGU5xCDJuCPe/giphy.gif',
     bg: bgInput.value,
+    card: cardInput.value,
+    text: textInput.value,
   })
   const url = `${location.origin}${location.pathname}?${params.toString()}`
   shareOutput.value = url
@@ -95,9 +142,11 @@ document.getElementById('saveBtn').addEventListener('click', () => {
   saved.unshift({
     title: titleInput.value,
     subtitle: subtitleInput.value,
-    image: imageInput.value,
-    accent: accentInput.value,
+    imageBefore: imageBeforeInput.value,
+    imageAfter: imageAfterInput.value,
     bg: bgInput.value,
+    card: cardInput.value,
+    text: textInput.value,
     time: new Date().toISOString(),
   })
   localStorage.setItem('valentine-saves', JSON.stringify(saved.slice(0, 12)))
@@ -107,26 +156,50 @@ document.getElementById('saveBtn').addEventListener('click', () => {
 
 function applyFromParams() {
   const params = new URLSearchParams(window.location.search)
-  if (!params.has('title')) return
+  if ([...params.keys()].length === 0) return
   document.body.classList.add('share-mode')
+  const homeBtn = document.getElementById('homeBtn')
+  if (homeBtn) {
+    homeBtn.href = `${location.origin}${location.pathname}`
+  }
   const title = params.get('title')
   const subtitle = params.get('subtitle')
-  const image = params.get('image')
-  const accent = params.get('accent')
+  const imageBefore = params.get('imageBefore')
+  const imageAfter = params.get('imageAfter')
   const bg = params.get('bg')
+  const card = params.get('card')
+  const text = params.get('text')
 
   document.getElementById('questionText').textContent = title || 'Will you be my valentine?'
   document.getElementById('subtitleText').textContent = subtitle || 'Click yes and let the confetti rain.'
 
-  if (accent) {
-    document.documentElement.style.setProperty('--accent', accent)
-  }
   if (bg) {
     document.documentElement.style.setProperty('--bg-1', bg)
+    document.documentElement.style.setProperty('--bg-2', bg)
   }
-  if (image) {
-    heroImage.src = image
-    heroImage.style.display = 'block'
+  if (card) {
+    document.documentElement.style.setProperty('--card', card)
+  }
+  if (text) {
+    document.documentElement.style.setProperty('--ink', text)
+  }
+
+  if (imageBefore) {
+    heroImageBefore.src = imageBefore
+    heroImageBefore.style.display = 'block'
+  } else {
+    heroImageBefore.style.display = 'none'
+  }
+
+  if (imageAfter) {
+    heroImageAfter.src = imageAfter
+    heroImageAfter.style.display = 'none'
+  } else {
+    heroImageAfter.style.display = 'none'
+  }
+
+  if (!imageBefore && imageAfter) {
+    heroImageAfter.style.display = 'block'
   }
 }
 
@@ -142,57 +215,105 @@ function getCoverScale() {
   return Math.max(1, (distance + noRadius) / yesRadius)
 }
 
-const galleryItems = [
-  {
-    title: 'Be my co-pilot forever?',
-    subtitle: 'Say yes for infinite snacks.',
-    image: 'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',
-    accent: '#ff6b6b',
-    bg: '#fff0f3',
-  },
-  {
-    title: 'Ready for a cozy yes?',
-    subtitle: 'Blanket fort optional.',
-    image: 'https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif',
-    accent: '#f78fb3',
-    bg: '#fff7e6',
-  },
-  {
-    title: "Let's be valentines",
-    subtitle: 'Click yes and sparkle on.',
-    image: 'https://media.giphy.com/media/xT0xezQGU5xCDJuCPe/giphy.gif',
-    accent: '#ff9ff3',
-    bg: '#fef6ff',
-  },
-]
 
-function renderGallery() {
-  const grid = document.getElementById('galleryGrid')
-  grid.innerHTML = ''
-
-  const saved = JSON.parse(localStorage.getItem('valentine-saves') || '[]')
-  const combined = [...saved, ...galleryItems]
-
-  combined.forEach(item => {
+function renderMediaGallery(list, targetId) {
+  const container = document.getElementById(targetId)
+  if (!container) return
+  container.innerHTML = ''
+  list.forEach(url => {
     const card = document.createElement('div')
-    card.className = 'gallery-item'
+    card.className = 'gallery-card'
     card.innerHTML = `
-          <strong>${item.title || 'Custom valentine'}</strong>
-          <div>${item.subtitle || ''}</div>
-          <button class="secondary-btn" style="margin-top: 12px;">Use</button>
-        `
+      <img src="${url}" alt="Gallery item" />
+      <div class="gallery-copy-row">
+        <input readonly value="${url}" />
+        <button class="secondary-btn">Copy Link</button>
+      </div>
+    `
+    card.querySelector('button').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(url)
+        alert('Link copied!')
+      } catch (err) {
+        const input = card.querySelector('input')
+        input.select()
+        document.execCommand('copy')
+      }
+    })
+    container.appendChild(card)
+  })
+}
+
+function renderTextGallery(list, targetId) {
+  const container = document.getElementById(targetId)
+  if (!container) return
+  container.innerHTML = ''
+  list.forEach(text => {
+    const card = document.createElement('div')
+    card.className = 'gallery-card'
+    card.innerHTML = `
+      <div class="gallery-text">${text}</div>
+      <button class="secondary-btn">Copy Text</button>
+    `
+    card.querySelector('button').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(text)
+        alert('Text copied!')
+      } catch (err) {
+        const temp = document.createElement('textarea')
+        temp.value = text
+        document.body.appendChild(temp)
+        temp.select()
+        document.execCommand('copy')
+        temp.remove()
+      }
+    })
+    container.appendChild(card)
+  })
+}
+
+function renderColorGallery(list, targetId) {
+  const container = document.getElementById(targetId)
+  if (!container) return
+  container.innerHTML = ''
+  list.forEach(combo => {
+    const card = document.createElement('div')
+    card.className = 'gallery-card color-card'
+    card.innerHTML = `
+      <div class="color-swatches">
+        <div class="color-swatch" style="background:${combo.bg}"></div>
+        <div class="color-swatch" style="background:${combo.card}"></div>
+        <div class="color-swatch" style="background:${combo.text}"></div>
+      </div>
+      <div class="color-label">${combo.label}</div>
+      <button class="secondary-btn">Use Colors</button>
+    `
     card.querySelector('button').addEventListener('click', () => {
-      titleInput.value = item.title || ''
-      subtitleInput.value = item.subtitle || ''
-      imageInput.value = item.image || ''
-      accentInput.value = item.accent || '#ff5d7c'
-      bgInput.value = item.bg || '#fff1f5'
+      bgInput.value = combo.bg
+      cardInput.value = combo.card
+      textInput.value = combo.text
       updatePreview()
       createPanel.scrollIntoView({ behavior: 'smooth' })
     })
-    grid.appendChild(card)
+    container.appendChild(card)
   })
 }
+
+function renderGallerySections() {
+  renderMediaGallery(galleryImages, 'galleryImages')
+  renderMediaGallery(galleryGifs, 'galleryGifs')
+  renderTextGallery(galleryTexts, 'galleryTexts')
+  renderColorGallery(colorCombos, 'galleryColors')
+}
+
+document.querySelectorAll('[data-gallery-target]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById(btn.dataset.galleryTarget)
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+    }
+  })
+})
 
 function launchConfetti() {
   const canvas = document.getElementById('confetti')
@@ -231,4 +352,4 @@ function launchConfetti() {
 
 updatePreview()
 applyFromParams()
-renderGallery()
+renderGallerySections()
