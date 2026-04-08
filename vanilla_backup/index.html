@@ -1,0 +1,133 @@
+﻿<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Will You Be My Valentine?</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<canvas id="confetti"></canvas>
+		<a id="homeBtn" class="home-btn" href="#">Create</a>
+		<header>
+			<div class="brand">Valentine Studio</div>
+		</header>
+
+		<section class="hero">
+			<div class="hero-card">
+				<div class="valentine-stage">
+					<div class="question" id="questionText">Will you be my valentine?</div>
+					<img id="heroImageBefore" class="hero-image" alt="" />
+					<img id="heroImageAfter" class="hero-image" alt="" />
+					<div class="button-row">
+						<button id="yesBtn">Yes</button>
+						<button id="noBtn">No</button>
+					</div>
+					<div class="celebration" id="celebration">Yay! You just made this day sparkly.</div>
+				</div>
+			</div>
+
+			<div>
+				<h1 id="headlineText">Create a sharable valentine moment</h1>
+				<p>Customize the text, colors, and image. Save your favorite version and share it instantly.</p>
+				<div class="button-row">
+					<button class="secondary-btn" id="scrollCreate">Start Creating</button>
+					<button class="secondary-btn" id="scrollGallery">Explore Gallery</button>
+				</div>
+			</div>
+		</section>
+
+		<section class="panel-grid">
+			<div class="panel" id="createPanel">
+				<h2>Create</h2>
+				<label for="titleInput">Headline</label>
+				<input id="titleInput" placeholder="Will you be my valentine?" />
+
+				<label for="celebrationInput">Message After Yes</label>
+				<input id="celebrationInput" placeholder="Yay! You just made this day sparkly." />
+
+				<label for="imageBeforeInput">Image/GIF Before Yes</label>
+				<input id="imageBeforeInput" placeholder="https://..." />
+
+				<label for="imageAfterInput">Image/GIF After Yes</label>
+				<input id="imageAfterInput" placeholder="https://..." />
+
+				<div class="form-row">
+					<div>
+						<label for="bgInput">Background Color</label>
+						<input id="bgInput" type="color" value="#fff1f5" />
+					</div>
+					<div>
+						<label for="cardInput">Card Color</label>
+						<input id="cardInput" type="color" value="#ffffff" />
+					</div>
+					<div>
+						<label for="textInput">Text Color</label>
+						<input id="textInput" type="color" value="#2a0e13" />
+					</div>
+				</div>
+
+				<div class="form-row">
+					<button id="generateBtn" class="primary-btn">Generate Link</button>
+					<button class="secondary-btn" id="saveBtn">Save</button>
+				</div>
+				<label for="shareOutput">Shareable Link</label>
+				<input id="shareOutput" readonly />
+				<button class="ghost-btn" id="copyBtn">Copy Link</button>
+			</div>
+
+			<div class="panel" id="previewPanel">
+				<h2>Preview</h2>
+				<div class="hero-card" id="previewCard">
+					<div class="valentine-stage">
+						<div class="question" id="previewQuestion">Will you be my valentine?</div>
+						<img id="previewImageBefore" alt="" style="width: 100%; border-radius: 16px; margin-top: 12px; display: none" />
+						<img id="previewImageAfter" alt="" style="width: 100%; border-radius: 16px; margin-top: 12px; display: none" />
+						<div class="button-row preview-buttons">
+							<button class="preview-yes" type="button" disabled>Yes</button>
+							<button class="preview-no" type="button" disabled>No</button>
+						</div>
+						<div class="celebration preview-celebration" id="previewCelebration">Yay! You just made this day sparkly.</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="gallery-section" id="gallerySection">
+			<div class="gallery-header">
+				<h2>Gallery</h2>
+				<p>Explore images, GIFs, texts, and color palettes. Copy what you love or tap Use for colors.</p>
+			</div>
+			<div class="gallery-nav">
+				<button class="secondary-btn" data-gallery-target="galleryGifs">GIFs</button>
+				<button class="secondary-btn" data-gallery-target="galleryImages">Images</button>
+				<button class="secondary-btn" data-gallery-target="galleryTexts">Texts</button>
+				<button class="secondary-btn" data-gallery-target="galleryColors">Color Combos</button>
+			</div>
+			<div class="gallery-block" id="galleryGifsBlock">
+				<h3>GIFs</h3>
+				<div class="gallery-strip" id="galleryGifs"></div>
+			</div>
+			<div class="gallery-block" id="galleryImagesBlock">
+				<h3>Images</h3>
+				<div class="gallery-strip" id="galleryImages"></div>
+			</div>
+			<div class="gallery-block" id="galleryTextsBlock">
+				<h3>Texts</h3>
+				<div class="gallery-strip" id="galleryTexts"></div>
+			</div>
+			<div class="gallery-block" id="galleryColorsBlock">
+				<h3>Color Combinations</h3>
+				<div class="gallery-strip" id="galleryColors"></div>
+			</div>
+		</section>
+
+		<footer>Built for sweet moments. Customize, save, and share.</footer>
+
+		<script src="gallery.js"></script>
+		<script src="script.js"></script>
+	</body>
+</html>
